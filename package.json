@@ -1,6 +1,6 @@
 {
   "name": "openapi-axios-query",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "OpenAPI client with Axios and React Query",
   "main": "index.js",
   "scripts": {
