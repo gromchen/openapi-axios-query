@@ -4,6 +4,7 @@
   "description": "OpenAPI client with Axios and React Query",
   "main": "index.ts",
   "scripts": {
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,5 +27,8 @@
   "dependencies": {
     "@tanstack/react-query": "^4.35.0",
     "axios": "^1.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
   }
 }
