@@ -1,0 +1,26 @@
+{
+  "name": "openapi-axios-query",
+  "version": "0.0.0",
+  "description": "OpenAPI client with Axios and React Query",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gromchen/openapi-axios-query.git"
+  },
+  "keywords": [
+    "openapi",
+    "client",
+    "axios",
+    "react",
+    "query"
+  ],
+  "author": "Yuriy Gromchenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gromchen/openapi-axios-query/issues"
+  },
+  "homepage": "https://github.com/gromchen/openapi-axios-query#readme"
+}
