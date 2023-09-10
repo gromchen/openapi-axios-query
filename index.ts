@@ -159,10 +159,3 @@ type ResponseData<TOperation> = TOperation extends { responses: any }
 type Success<T> = FilterKeys<FilterKeys<T, OkStatus>, "content">;
 
 export type OkStatus = 200 | 201 | 202 | 203 | 204 | 206 | 207;
-
-export type ErrorData<T = Record<string, string[]>> = {
-  incidentId: string;
-  timestamp: string;
-  errors: T;
-  message: string;
-};
