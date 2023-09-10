@@ -2,7 +2,7 @@
   "name": "openapi-axios-query",
   "version": "0.0.0",
   "description": "OpenAPI client with Axios and React Query",
-  "main": "index.ts",
+  "main": "index.js",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
