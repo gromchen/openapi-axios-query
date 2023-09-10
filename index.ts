@@ -1,10 +1,20 @@
-import { QueryMeta, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import { Context } from "react";
+import {
+  QueryMeta,
+  useQuery,
+  useQueryClient,
+  QueryClient,
+} from "@tanstack/react-query";
+import { AxiosInstance, AxiosError } from "axios";
 
 export function createClient<TPaths extends object>({
   baseURL,
+  axios,
+  context,
 }: {
   baseURL: string;
+  axios: AxiosInstance;
+  context: Context<QueryClient | undefined>;
 }) {
   const typedAxios = <
     TPath extends keyof TPaths,
@@ -51,7 +61,7 @@ export function createClient<TPaths extends object>({
     /** @deprecated https://tkdodo.eu/blog/breaking-react-querys-api-on-purpose */
     onError?: (err: TError) => void;
   }) => {
-    const queryClient = useQueryClient();
+    const queryClient = useQueryClient({ context });
 
     const queryKey = [url, options.parameters?.path, options.parameters?.query];
 
@@ -65,6 +75,7 @@ export function createClient<TPaths extends object>({
       meta,
       retry,
       onError,
+      context,
     });
 
     return {

@@ -8,15 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createClient = void 0;
 const react_query_1 = require("@tanstack/react-query");
-const axios_1 = __importDefault(require("axios"));
-function createClient({ baseURL, }) {
-    const typedAxios = (path, { method, parameters, data }) => (0, axios_1.default)({
+function createClient({ baseURL, axios, context, }) {
+    const typedAxios = (path, { method, parameters, data }) => axios({
         url: toUrl(path, parameters === null || parameters === void 0 ? void 0 : parameters.path),
         method,
         baseURL,
@@ -25,7 +21,7 @@ function createClient({ baseURL, }) {
     });
     const useTypedQuery = ({ url, options, refetchOnWindowFocus, keepPreviousData, enabled, refetchInterval, meta, retry, onError, }) => {
         var _a, _b;
-        const queryClient = (0, react_query_1.useQueryClient)();
+        const queryClient = (0, react_query_1.useQueryClient)({ context });
         const queryKey = [url, (_a = options.parameters) === null || _a === void 0 ? void 0 : _a.path, (_b = options.parameters) === null || _b === void 0 ? void 0 : _b.query];
         const result = (0, react_query_1.useQuery)({
             queryKey,
@@ -37,6 +33,7 @@ function createClient({ baseURL, }) {
             meta,
             retry,
             onError,
+            context,
         });
         return Object.assign(Object.assign({}, result), { queryKey, invalidateQueries: () => queryClient.invalidateQueries(queryKey) });
     };

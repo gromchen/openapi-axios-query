@@ -1,7 +1,10 @@
-import { QueryMeta } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-export declare function createClient<TPaths extends object>({ baseURL, }: {
+import { Context } from "react";
+import { QueryMeta, QueryClient } from "@tanstack/react-query";
+import { AxiosInstance, AxiosError } from "axios";
+export declare function createClient<TPaths extends object>({ baseURL, axios, context, }: {
     baseURL: string;
+    axios: AxiosInstance;
+    context: Context<QueryClient | undefined>;
 }): (<TPath extends keyof TPaths, TMethod extends keyof TPaths[TPath] & HttpMethod>(path: TPath, { method, parameters, data }: Options<TPaths[TPath], TMethod>) => Promise<import("axios").AxiosResponse<ResponseData<TPaths[TPath][TMethod]>, any>>) & {
     useQuery: <TPath_1 extends keyof TPaths, TMethod_1 extends keyof TPaths[TPath_1] & HttpMethod, TError = AxiosError<unknown, any>>({ url, options, refetchOnWindowFocus, keepPreviousData, enabled, refetchInterval, meta, retry, onError, }: {
         url: TPath_1;
