@@ -1,26 +1,17 @@
 import { Context } from "react";
-import { QueryMeta, QueryClient } from "@tanstack/react-query";
+import { QueryClient, UseQueryOptions } from "@tanstack/react-query";
 import { AxiosInstance, AxiosError } from "axios";
 export declare function createClient<TPaths extends object>({ baseURL, axios, context, }: {
     baseURL: string;
     axios: AxiosInstance;
     context: Context<QueryClient | undefined>;
 }): (<TPath extends keyof TPaths, TMethod extends keyof TPaths[TPath] & HttpMethod>(path: TPath, { method, parameters, data }: Options<TPaths[TPath], TMethod>) => Promise<import("axios").AxiosResponse<ResponseData<TPaths[TPath][TMethod]>, any>>) & {
-    useQuery: <TPath_1 extends keyof TPaths, TMethod_1 extends keyof TPaths[TPath_1] & HttpMethod, TError = AxiosError<unknown, any>>({ url, options, refetchOnWindowFocus, keepPreviousData, enabled, refetchInterval, meta, retry, onError, }: {
+    useQuery: <TPath_1 extends keyof TPaths, TMethod_1 extends keyof TPaths[TPath_1] & HttpMethod, TError = AxiosError<unknown, any>, TData = ResponseData<TPaths[TPath_1][TMethod_1]>>({ url, options, ...queryOptions }: Omit<UseQueryOptions<ResponseData<TPaths[TPath_1][TMethod_1]>, TError, TData, (TPath_1 | Record<string, any> | undefined)[]>, "queryKey" | "queryFn"> & {
         url: TPath_1;
         options: Options<TPaths[TPath_1], TMethod_1>;
-        refetchOnWindowFocus?: boolean | undefined;
-        keepPreviousData?: boolean | undefined;
-        enabled?: boolean | undefined;
-        refetchInterval?: number | false | undefined;
-        meta?: QueryMeta | undefined;
-        retry?: number | boolean | ((failureCount: number, error: TError) => boolean) | undefined;
-        /** @deprecated https://tkdodo.eu/blog/breaking-react-querys-api-on-purpose */
-        onError?: ((err: TError) => void) | undefined;
     }) => {
-        queryKey: (TPath_1 | Record<string, any> | undefined)[];
         invalidateQueries: () => Promise<void>;
-        data: ResponseData<TPaths[TPath_1][TMethod_1]>;
+        data: TData;
         error: TError;
         isError: true;
         isLoading: false;
@@ -42,13 +33,12 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         isPreviousData: boolean;
         isRefetching: boolean;
         isStale: boolean;
-        refetch: <TPageData>(options?: (import("@tanstack/react-query").RefetchOptions & import("@tanstack/react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<ResponseData<TPaths[TPath_1][TMethod_1]>, TError>>;
+        refetch: <TPageData>(options?: (import("@tanstack/react-query").RefetchOptions & import("@tanstack/react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
         remove: () => void;
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
-        queryKey: (TPath_1 | Record<string, any> | undefined)[];
         invalidateQueries: () => Promise<void>;
-        data: ResponseData<TPaths[TPath_1][TMethod_1]>;
+        data: TData;
         error: null;
         isError: false;
         isLoading: false;
@@ -70,11 +60,10 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         isPreviousData: boolean;
         isRefetching: boolean;
         isStale: boolean;
-        refetch: <TPageData>(options?: (import("@tanstack/react-query").RefetchOptions & import("@tanstack/react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<ResponseData<TPaths[TPath_1][TMethod_1]>, TError>>;
+        refetch: <TPageData>(options?: (import("@tanstack/react-query").RefetchOptions & import("@tanstack/react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
         remove: () => void;
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
-        queryKey: (TPath_1 | Record<string, any> | undefined)[];
         invalidateQueries: () => Promise<void>;
         data: undefined;
         error: TError;
@@ -98,11 +87,10 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         isPreviousData: boolean;
         isRefetching: boolean;
         isStale: boolean;
-        refetch: <TPageData>(options?: (import("@tanstack/react-query").RefetchOptions & import("@tanstack/react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<ResponseData<TPaths[TPath_1][TMethod_1]>, TError>>;
+        refetch: <TPageData>(options?: (import("@tanstack/react-query").RefetchOptions & import("@tanstack/react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
         remove: () => void;
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
-        queryKey: (TPath_1 | Record<string, any> | undefined)[];
         invalidateQueries: () => Promise<void>;
         data: undefined;
         error: null;
@@ -126,7 +114,7 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         isPreviousData: boolean;
         isRefetching: boolean;
         isStale: boolean;
-        refetch: <TPageData>(options?: (import("@tanstack/react-query").RefetchOptions & import("@tanstack/react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<ResponseData<TPaths[TPath_1][TMethod_1]>, TError>>;
+        refetch: <TPageData>(options?: (import("@tanstack/react-query").RefetchOptions & import("@tanstack/react-query").RefetchQueryFilters<TPageData>) | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
         remove: () => void;
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     };

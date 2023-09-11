@@ -1,9 +1,9 @@
 import { Context } from "react";
 import {
-  QueryMeta,
   useQuery,
   useQueryClient,
   QueryClient,
+  UseQueryOptions,
 } from "@tanstack/react-query";
 import { AxiosInstance, AxiosError } from "axios";
 
@@ -34,32 +34,23 @@ export function createClient<TPaths extends object>({
   const useTypedQuery = <
     TPath extends keyof TPaths,
     TMethod extends keyof TPaths[TPath] & HttpMethod,
-    TError = AxiosError
+    TError = AxiosError,
+    TData = ResponseData<TPaths[TPath][TMethod]>
   >({
     url,
     options,
-    refetchOnWindowFocus,
-    keepPreviousData,
-    enabled,
-    refetchInterval,
-    meta,
-    retry,
-    onError,
-  }: {
+    ...queryOptions
+  }: Omit<
+    UseQueryOptions<
+      ResponseData<TPaths[TPath][TMethod]>,
+      TError,
+      TData,
+      (Record<string, any> | TPath | undefined)[]
+    >,
+    "queryKey" | "queryFn"
+  > & {
     url: TPath;
     options: Options<TPaths[TPath], TMethod>;
-    refetchOnWindowFocus?: boolean;
-    keepPreviousData?: boolean;
-    enabled?: boolean;
-    refetchInterval?: number | false;
-    meta?: QueryMeta;
-    retry?:
-      | boolean
-      | number
-      | ((failureCount: number, error: TError) => boolean);
-
-    /** @deprecated https://tkdodo.eu/blog/breaking-react-querys-api-on-purpose */
-    onError?: (err: TError) => void;
   }) => {
     const queryClient = useQueryClient({ context });
 
@@ -68,19 +59,12 @@ export function createClient<TPaths extends object>({
     const result = useQuery({
       queryKey,
       queryFn: async () => (await typedAxios(url, options)).data,
-      refetchOnWindowFocus,
-      keepPreviousData,
-      enabled,
-      refetchInterval,
-      meta,
-      retry,
-      onError,
       context,
+      ...queryOptions,
     });
 
     return {
       ...result,
-      queryKey,
       invalidateQueries: () => queryClient.invalidateQueries(queryKey),
     };
   };
