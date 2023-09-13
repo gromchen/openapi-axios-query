@@ -36,7 +36,7 @@ function createClient({ baseURL, axios, context, }) {
         const queryClient = (0, react_query_1.useQueryClient)({ context });
         const queryKey = [url, (_b = options.parameters) === null || _b === void 0 ? void 0 : _b.path, (_c = options.parameters) === null || _c === void 0 ? void 0 : _c.query];
         const result = (0, react_query_1.useQuery)(Object.assign({ queryKey, queryFn: () => __awaiter(this, void 0, void 0, function* () { return (yield typedAxios(url, options)).data; }), context }, queryOptions));
-        return Object.assign(Object.assign({}, result), { invalidateQueries: () => queryClient.invalidateQueries(queryKey) });
+        return Object.assign(Object.assign({}, result), { invalidateQueries: () => queryClient.invalidateQueries(queryKey), removeQueries: () => queryClient.removeQueries(queryKey) });
     };
     return Object.assign(typedAxios, {
         useQuery: useTypedQuery,

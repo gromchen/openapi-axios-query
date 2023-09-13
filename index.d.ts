@@ -11,6 +11,7 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         options: Options<TPaths[TPath_1], TMethod_1>;
     }) => {
         invalidateQueries: () => Promise<void>;
+        removeQueries: () => void;
         data: TData;
         error: TError;
         isError: true;
@@ -38,6 +39,7 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
         invalidateQueries: () => Promise<void>;
+        removeQueries: () => void;
         data: TData;
         error: null;
         isError: false;
@@ -65,6 +67,7 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
         invalidateQueries: () => Promise<void>;
+        removeQueries: () => void;
         data: undefined;
         error: TError;
         isError: true;
@@ -92,6 +95,7 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
         invalidateQueries: () => Promise<void>;
+        removeQueries: () => void;
         data: undefined;
         error: null;
         isError: false;

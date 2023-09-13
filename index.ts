@@ -66,6 +66,7 @@ export function createClient<TPaths extends object>({
     return {
       ...result,
       invalidateQueries: () => queryClient.invalidateQueries(queryKey),
+      removeQueries: () => queryClient.removeQueries(queryKey),
     };
   };
 
