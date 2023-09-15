@@ -4,6 +4,11 @@ import {
   useQueryClient,
   QueryClient,
   UseQueryOptions,
+  QueryFilters,
+  Updater,
+  SetDataOptions,
+  InvalidateQueryFilters,
+  InvalidateOptions,
 } from "@tanstack/react-query";
 import { AxiosInstance, AxiosError } from "axios";
 
@@ -65,8 +70,16 @@ export function createClient<TPaths extends object>({
 
     return {
       ...result,
-      invalidateQueries: () => queryClient.invalidateQueries(queryKey),
-      removeQueries: () => queryClient.removeQueries(queryKey),
+      invalidateQueries: (
+        filters?: InvalidateQueryFilters<unknown> | undefined,
+        options?: InvalidateOptions | undefined
+      ) => queryClient.invalidateQueries(queryKey, filters, options),
+      removeQueries: (filters?: QueryFilters | undefined) =>
+        queryClient.removeQueries(queryKey, filters),
+      setQueryData: (
+        updater: Updater<TData | undefined, TData | undefined>,
+        options?: SetDataOptions | undefined
+      ) => queryClient.setQueryData(queryKey, updater, options),
     };
   };
 

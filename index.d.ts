@@ -1,5 +1,5 @@
 import { Context } from "react";
-import { QueryClient, UseQueryOptions } from "@tanstack/react-query";
+import { QueryClient, UseQueryOptions, QueryFilters, Updater, SetDataOptions, InvalidateQueryFilters, InvalidateOptions } from "@tanstack/react-query";
 import { AxiosInstance, AxiosError } from "axios";
 export declare function createClient<TPaths extends object>({ baseURL, axios, context, }: {
     baseURL: string;
@@ -10,8 +10,9 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         url: TPath_1;
         options: Options<TPaths[TPath_1], TMethod_1>;
     }) => {
-        invalidateQueries: () => Promise<void>;
-        removeQueries: () => void;
+        invalidateQueries: (filters?: InvalidateQueryFilters<unknown> | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
+        removeQueries: (filters?: QueryFilters | undefined) => void;
+        setQueryData: (updater: Updater<TData | undefined, TData | undefined>, options?: SetDataOptions | undefined) => TData | undefined;
         data: TData;
         error: TError;
         isError: true;
@@ -38,8 +39,9 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         remove: () => void;
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
-        invalidateQueries: () => Promise<void>;
-        removeQueries: () => void;
+        invalidateQueries: (filters?: InvalidateQueryFilters<unknown> | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
+        removeQueries: (filters?: QueryFilters | undefined) => void;
+        setQueryData: (updater: Updater<TData | undefined, TData | undefined>, options?: SetDataOptions | undefined) => TData | undefined;
         data: TData;
         error: null;
         isError: false;
@@ -66,8 +68,9 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         remove: () => void;
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
-        invalidateQueries: () => Promise<void>;
-        removeQueries: () => void;
+        invalidateQueries: (filters?: InvalidateQueryFilters<unknown> | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
+        removeQueries: (filters?: QueryFilters | undefined) => void;
+        setQueryData: (updater: Updater<TData | undefined, TData | undefined>, options?: SetDataOptions | undefined) => TData | undefined;
         data: undefined;
         error: TError;
         isError: true;
@@ -94,8 +97,9 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         remove: () => void;
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
-        invalidateQueries: () => Promise<void>;
-        removeQueries: () => void;
+        invalidateQueries: (filters?: InvalidateQueryFilters<unknown> | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
+        removeQueries: (filters?: QueryFilters | undefined) => void;
+        setQueryData: (updater: Updater<TData | undefined, TData | undefined>, options?: SetDataOptions | undefined) => TData | undefined;
         data: undefined;
         error: null;
         isError: false;
