@@ -1,4 +1,4 @@
-import { Context } from "react";
+import { Context, useCallback } from "react";
 import {
   useQuery,
   useQueryClient,
@@ -68,12 +68,17 @@ export function createClient<TPaths extends object>({
       ...queryOptions,
     });
 
-    return {
-      ...result,
-      invalidateQueries: (
+    const invalidateQueries = useCallback(
+      (
         filters?: InvalidateQueryFilters<unknown> | undefined,
         options?: InvalidateOptions | undefined
       ) => queryClient.invalidateQueries(queryKey, filters, options),
+      []
+    );
+
+    return {
+      ...result,
+      invalidateQueries,
       removeQueries: (filters?: QueryFilters | undefined) =>
         queryClient.removeQueries(queryKey, filters),
       setQueryData: (
