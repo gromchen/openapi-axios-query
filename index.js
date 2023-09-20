@@ -21,6 +21,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createClient = void 0;
+const react_1 = require("react");
 const react_query_1 = require("@tanstack/react-query");
 function createClient({ baseURL, axios, context, }) {
     const typedAxios = (path, { method, parameters, data }) => axios({
@@ -34,9 +35,14 @@ function createClient({ baseURL, axios, context, }) {
         var _b, _c;
         var { url, options } = _a, queryOptions = __rest(_a, ["url", "options"]);
         const queryClient = (0, react_query_1.useQueryClient)({ context });
-        const queryKey = [url, (_b = options.parameters) === null || _b === void 0 ? void 0 : _b.path, (_c = options.parameters) === null || _c === void 0 ? void 0 : _c.query];
+        const queryKey = (0, react_1.useMemo)(() => { var _a, _b; return [url, (_a = options.parameters) === null || _a === void 0 ? void 0 : _a.path, (_b = options.parameters) === null || _b === void 0 ? void 0 : _b.query]; }, [(_b = options.parameters) === null || _b === void 0 ? void 0 : _b.path, (_c = options.parameters) === null || _c === void 0 ? void 0 : _c.query, url]);
         const result = (0, react_query_1.useQuery)(Object.assign({ queryKey, queryFn: () => __awaiter(this, void 0, void 0, function* () { return (yield typedAxios(url, options)).data; }), context }, queryOptions));
-        return Object.assign(Object.assign({}, result), { invalidateQueries: (filters, options) => queryClient.invalidateQueries(queryKey, filters, options), removeQueries: (filters) => queryClient.removeQueries(queryKey, filters), setQueryData: (updater, options) => queryClient.setQueryData(queryKey, updater, options) });
+        const invalidateQueries = (0, react_1.useCallback)((filters, options) => queryClient.invalidateQueries(queryKey, filters, options), [queryClient, queryKey]);
+        const removeQueries = (0, react_1.useCallback)((filters) => queryClient.removeQueries(queryKey, filters), [queryClient, queryKey]);
+        const setQueryData = (0, react_1.useCallback)((updater, options) => queryClient.setQueryData(queryKey, updater, options), [queryClient, queryKey]);
+        return Object.assign(Object.assign({}, result), { invalidateQueries,
+            removeQueries,
+            setQueryData });
     };
     return Object.assign(typedAxios, {
         useQuery: useTypedQuery,

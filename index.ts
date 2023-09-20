@@ -1,4 +1,4 @@
-import { Context, useCallback } from "react";
+import { Context, useCallback, useMemo } from "react";
 import {
   useQuery,
   useQueryClient,
@@ -59,7 +59,10 @@ export function createClient<TPaths extends object>({
   }) => {
     const queryClient = useQueryClient({ context });
 
-    const queryKey = [url, options.parameters?.path, options.parameters?.query];
+    const queryKey = useMemo(
+      () => [url, options.parameters?.path, options.parameters?.query],
+      [options.parameters?.path, options.parameters?.query, url]
+    );
 
     const result = useQuery({
       queryKey,
@@ -73,18 +76,28 @@ export function createClient<TPaths extends object>({
         filters?: InvalidateQueryFilters<unknown> | undefined,
         options?: InvalidateOptions | undefined
       ) => queryClient.invalidateQueries(queryKey, filters, options),
-      []
+      [queryClient, queryKey]
+    );
+
+    const removeQueries = useCallback(
+      (filters?: QueryFilters | undefined) =>
+        queryClient.removeQueries(queryKey, filters),
+      [queryClient, queryKey]
+    );
+
+    const setQueryData = useCallback(
+      (
+        updater: Updater<TData | undefined, TData | undefined>,
+        options?: SetDataOptions | undefined
+      ) => queryClient.setQueryData(queryKey, updater, options),
+      [queryClient, queryKey]
     );
 
     return {
       ...result,
       invalidateQueries,
-      removeQueries: (filters?: QueryFilters | undefined) =>
-        queryClient.removeQueries(queryKey, filters),
-      setQueryData: (
-        updater: Updater<TData | undefined, TData | undefined>,
-        options?: SetDataOptions | undefined
-      ) => queryClient.setQueryData(queryKey, updater, options),
+      removeQueries,
+      setQueryData,
     };
   };
 
