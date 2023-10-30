@@ -1,14 +1,15 @@
 import { Context } from "react";
 import { QueryClient, UseQueryOptions, QueryFilters, Updater, SetDataOptions, InvalidateQueryFilters, InvalidateOptions } from "@tanstack/react-query";
-import { AxiosInstance, AxiosError } from "axios";
+import { AxiosInstance, AxiosError, AxiosRequestConfig } from "axios";
 export declare function createClient<TPaths extends object>({ baseURL, axios, context, }: {
     baseURL: string;
     axios: AxiosInstance;
     context: Context<QueryClient | undefined>;
-}): (<TPath extends keyof TPaths, TMethod extends keyof TPaths[TPath] & HttpMethod>(path: TPath, { method, parameters, data }: Options<TPaths[TPath], TMethod>) => Promise<import("axios").AxiosResponse<ResponseData<TPaths[TPath][TMethod]>, any>>) & {
-    useQuery: <TPath_1 extends keyof TPaths, TMethod_1 extends keyof TPaths[TPath_1] & HttpMethod, TError = AxiosError<unknown, any>, TData = ResponseData<TPaths[TPath_1][TMethod_1]>>({ url, options, ...queryOptions }: Omit<UseQueryOptions<ResponseData<TPaths[TPath_1][TMethod_1]>, TError, TData, (TPath_1 | Record<string, any> | undefined)[]>, "queryKey" | "queryFn"> & {
+}): (<TPath extends keyof TPaths, TMethod extends keyof TPaths[TPath] & HttpMethod>(path: TPath, { method, parameters, data }: Options<TPaths[TPath], TMethod>, config?: TypedAxiosRequestConfig) => Promise<import("axios").AxiosResponse<ResponseData<TPaths[TPath][TMethod]>, any>>) & {
+    useQuery: <TPath_1 extends keyof TPaths, TMethod_1 extends keyof TPaths[TPath_1] & HttpMethod, TError = AxiosError<unknown, any>, TData = ResponseData<TPaths[TPath_1][TMethod_1]>>({ url, options, axiosConfig, ...queryOptions }: Omit<UseQueryOptions<ResponseData<TPaths[TPath_1][TMethod_1]>, TError, TData, (TPath_1 | Record<string, any> | undefined)[]>, "queryKey" | "queryFn"> & {
         url: TPath_1;
         options: Options<TPaths[TPath_1], TMethod_1>;
+        axiosConfig?: TypedAxiosRequestConfig | undefined;
     }) => {
         invalidateQueries: (filters?: InvalidateQueryFilters<unknown> | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
         removeQueries: (filters?: QueryFilters | undefined) => void;
@@ -127,6 +128,7 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         fetchStatus: import("@tanstack/react-query").FetchStatus;
     };
 };
+type TypedAxiosRequestConfig = Omit<AxiosRequestConfig, "url" | "method" | "baseURL" | "params" | "data">;
 export type HttpMethod = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
 export type Options<TOperations, TMethod extends keyof TOperations> = Operation<TOperations[TMethod]> & RequestBody<TOperations[TMethod]> & HttpObject<TMethod>;
 type HttpObject<TMethod> = TMethod extends "get" ? {

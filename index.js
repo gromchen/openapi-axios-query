@@ -24,19 +24,14 @@ exports.createClient = void 0;
 const react_1 = require("react");
 const react_query_1 = require("@tanstack/react-query");
 function createClient({ baseURL, axios, context, }) {
-    const typedAxios = (path, { method, parameters, data }) => axios({
-        url: toUrl(path, parameters === null || parameters === void 0 ? void 0 : parameters.path),
-        method,
-        baseURL,
-        params: parameters === null || parameters === void 0 ? void 0 : parameters.query,
-        data,
-    });
+    const typedAxios = (path, { method, parameters, data }, config = {}) => axios(Object.assign({ url: toUrl(path, parameters === null || parameters === void 0 ? void 0 : parameters.path), method,
+        baseURL, params: parameters === null || parameters === void 0 ? void 0 : parameters.query, data }, config));
     const useTypedQuery = (_a) => {
         var _b, _c;
-        var { url, options } = _a, queryOptions = __rest(_a, ["url", "options"]);
+        var { url, options, axiosConfig } = _a, queryOptions = __rest(_a, ["url", "options", "axiosConfig"]);
         const queryClient = (0, react_query_1.useQueryClient)({ context });
         const queryKey = (0, react_1.useMemo)(() => { var _a, _b; return [url, (_a = options.parameters) === null || _a === void 0 ? void 0 : _a.path, (_b = options.parameters) === null || _b === void 0 ? void 0 : _b.query]; }, [(_b = options.parameters) === null || _b === void 0 ? void 0 : _b.path, (_c = options.parameters) === null || _c === void 0 ? void 0 : _c.query, url]);
-        const result = (0, react_query_1.useQuery)(Object.assign({ queryKey, queryFn: () => __awaiter(this, void 0, void 0, function* () { return (yield typedAxios(url, options)).data; }), context }, queryOptions));
+        const result = (0, react_query_1.useQuery)(Object.assign({ queryKey, queryFn: () => __awaiter(this, void 0, void 0, function* () { return (yield typedAxios(url, options, axiosConfig)).data; }), context }, queryOptions));
         const invalidateQueries = (0, react_1.useCallback)((filters, options) => queryClient.invalidateQueries(queryKey, filters, options), [queryClient, queryKey]);
         const removeQueries = (0, react_1.useCallback)((filters) => queryClient.removeQueries(queryKey, filters), [queryClient, queryKey]);
         const setQueryData = (0, react_1.useCallback)((updater, options) => queryClient.setQueryData(queryKey, updater, options), [queryClient, queryKey]);

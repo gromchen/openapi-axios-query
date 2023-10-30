@@ -10,7 +10,7 @@ import {
   InvalidateQueryFilters,
   InvalidateOptions,
 } from "@tanstack/react-query";
-import { AxiosInstance, AxiosError } from "axios";
+import { AxiosInstance, AxiosError, AxiosRequestConfig } from "axios";
 
 export function createClient<TPaths extends object>({
   baseURL,
@@ -26,7 +26,8 @@ export function createClient<TPaths extends object>({
     TMethod extends keyof TPaths[TPath] & HttpMethod
   >(
     path: TPath,
-    { method, parameters, data }: Options<TPaths[TPath], TMethod>
+    { method, parameters, data }: Options<TPaths[TPath], TMethod>,
+    config: TypedAxiosRequestConfig = {}
   ) =>
     axios<ResponseData<TPaths[TPath][TMethod]>>({
       url: toUrl(path, parameters?.path),
@@ -34,6 +35,7 @@ export function createClient<TPaths extends object>({
       baseURL,
       params: parameters?.query,
       data,
+      ...config,
     });
 
   const useTypedQuery = <
@@ -44,6 +46,7 @@ export function createClient<TPaths extends object>({
   >({
     url,
     options,
+    axiosConfig,
     ...queryOptions
   }: Omit<
     UseQueryOptions<
@@ -56,6 +59,7 @@ export function createClient<TPaths extends object>({
   > & {
     url: TPath;
     options: Options<TPaths[TPath], TMethod>;
+    axiosConfig?: TypedAxiosRequestConfig;
   }) => {
     const queryClient = useQueryClient({ context });
 
@@ -66,7 +70,7 @@ export function createClient<TPaths extends object>({
 
     const result = useQuery({
       queryKey,
-      queryFn: async () => (await typedAxios(url, options)).data,
+      queryFn: async () => (await typedAxios(url, options, axiosConfig)).data,
       context,
       ...queryOptions,
     });
@@ -121,6 +125,8 @@ function toUrl(
 
   return url;
 }
+
+type TypedAxiosRequestConfig = Omit<AxiosRequestConfig, "url" | "method" | "baseURL" | "params" | "data">;
 
 export type HttpMethod =
   | "get"
