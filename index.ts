@@ -1,8 +1,8 @@
-import { Context, useCallback, useMemo } from "react";
+import {useCallback, useMemo} from "react";
 import {
   useQuery,
-  useQueryClient,
   QueryClient,
+  useQueryClient,
   UseQueryOptions,
   QueryFilters,
   Updater,
@@ -19,9 +19,9 @@ export function createClient<TPaths extends object>({
 }: {
   baseURL: string;
   axios: AxiosInstance;
-  context: Context<QueryClient | undefined>;
+  context: QueryClient;
 }) {
-  const typedAxios = <
+    const typedAxios = <
     TPath extends keyof TPaths,
     TMethod extends keyof TPaths[TPath] & HttpMethod
   >(
@@ -61,8 +61,7 @@ export function createClient<TPaths extends object>({
     options: Options<TPaths[TPath], TMethod>;
     axiosConfig?: TypedAxiosRequestConfig;
   }) => {
-    const queryClient = useQueryClient({ context });
-
+    const queryClient = useQueryClient( context );
     const queryKey = useMemo(
       () => [url, options.parameters?.path, options.parameters?.query],
       [options.parameters?.path, options.parameters?.query, url]
@@ -71,21 +70,20 @@ export function createClient<TPaths extends object>({
     const result = useQuery({
       queryKey,
       queryFn: async () => (await typedAxios(url, options, axiosConfig)).data,
-      context,
       ...queryOptions,
-    });
+    }, queryClient);
 
     const invalidateQueries = useCallback(
       (
-        filters?: InvalidateQueryFilters<unknown> | undefined,
+        filters?: InvalidateQueryFilters | undefined,
         options?: InvalidateOptions | undefined
-      ) => queryClient.invalidateQueries(queryKey, filters, options),
+      ) => queryClient.invalidateQueries({queryKey, ...filters}, options),
       [queryClient, queryKey]
     );
 
     const removeQueries = useCallback(
       (filters?: QueryFilters | undefined) =>
-        queryClient.removeQueries(queryKey, filters),
+        queryClient.removeQueries({queryKey, ...filters}),
       [queryClient, queryKey]
     );
 
