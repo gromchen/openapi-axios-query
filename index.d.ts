@@ -1,190 +1,23 @@
-import { QueryClient, UseQueryOptions, QueryFilters, Updater, SetDataOptions, InvalidateQueryFilters, InvalidateOptions } from "@tanstack/react-query";
-import { AxiosInstance, AxiosError, AxiosRequestConfig } from "axios";
+import { QueryClient } from "@tanstack/react-query";
+import { AxiosInstance } from "axios";
 export declare function createClient<TPaths extends object>({ baseURL, axios, context, }: {
     baseURL: string;
     axios: AxiosInstance;
     context: QueryClient;
-}): (<TPath extends keyof TPaths, TMethod extends keyof TPaths[TPath] & HttpMethod>(path: TPath, { method, parameters, data }: Options<TPaths[TPath], TMethod>, config?: TypedAxiosRequestConfig) => Promise<import("axios").AxiosResponse<ResponseData<TPaths[TPath][TMethod]>, any>>) & {
-    useQuery: <TPath_1 extends keyof TPaths, TMethod_1 extends keyof TPaths[TPath_1] & HttpMethod, TError = AxiosError<unknown, any>, TData = ResponseData<TPaths[TPath_1][TMethod_1]>>({ url, options, axiosConfig, ...queryOptions }: Omit<UseQueryOptions<ResponseData<TPaths[TPath_1][TMethod_1]>, TError, TData, (TPath_1 | Record<string, any> | undefined)[]>, "queryKey" | "queryFn"> & {
+}): {
+    axios: <TPath extends keyof TPaths, TMethod extends keyof TPaths[TPath] & import("./http").HttpMethod>(path: TPath, { method, parameters, data }: import("./http").Options<TPaths[TPath], TMethod>, config?: import("./axios").TypedAxiosRequestConfig) => Promise<import("axios").AxiosResponse<import("./axios").ResponseData<TPaths[TPath][TMethod]>, any>>;
+    useQuery: <TPath_1 extends keyof TPaths, TMethod_1 extends keyof TPaths[TPath_1] & import("./http").HttpMethod, TError = import("axios").AxiosError<unknown, any>, TData = import("./axios").ResponseData<TPaths[TPath_1][TMethod_1]>>({ url, options, axiosConfig, ...queryOptions }: Omit<import("@tanstack/react-query").UseQueryOptions<import("./axios").ResponseData<TPaths[TPath_1][TMethod_1]>, TError, TData, (Record<string, any> | TPath_1 | undefined)[]>, "queryKey" | "queryFn"> & {
         url: TPath_1;
-        options: Options<TPaths[TPath_1], TMethod_1>;
-        axiosConfig?: TypedAxiosRequestConfig | undefined;
-    }) => {
-        invalidateQueries: (filters?: InvalidateQueryFilters | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
-        removeQueries: (filters?: QueryFilters | undefined) => void;
-        setQueryData: (updater: Updater<TData | undefined, TData | undefined>, options?: SetDataOptions | undefined) => unknown;
-        data: TData;
-        error: TError;
-        isError: true;
-        isPending: false;
-        isLoading: false;
-        isLoadingError: false;
-        isRefetchError: true;
-        isSuccess: false;
-        status: "error";
-        dataUpdatedAt: number;
-        errorUpdatedAt: number;
-        failureCount: number;
-        failureReason: TError | null;
-        errorUpdateCount: number;
-        isFetched: boolean;
-        isFetchedAfterMount: boolean;
-        isFetching: boolean;
-        isInitialLoading: boolean;
-        isPaused: boolean;
-        isPlaceholderData: boolean;
-        isRefetching: boolean;
-        isStale: boolean;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
-        fetchStatus: import("@tanstack/react-query").FetchStatus;
-    } | {
-        invalidateQueries: (filters?: InvalidateQueryFilters | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
-        removeQueries: (filters?: QueryFilters | undefined) => void;
-        setQueryData: (updater: Updater<TData | undefined, TData | undefined>, options?: SetDataOptions | undefined) => unknown;
-        data: TData;
-        error: null;
-        isError: false;
-        isPending: false;
-        isLoading: false;
-        isLoadingError: false;
-        isRefetchError: false;
-        isSuccess: true;
-        status: "success";
-        dataUpdatedAt: number;
-        errorUpdatedAt: number;
-        failureCount: number;
-        failureReason: TError | null;
-        errorUpdateCount: number;
-        isFetched: boolean;
-        isFetchedAfterMount: boolean;
-        isFetching: boolean;
-        isInitialLoading: boolean;
-        isPaused: boolean;
-        isPlaceholderData: boolean;
-        isRefetching: boolean;
-        isStale: boolean;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
-        fetchStatus: import("@tanstack/react-query").FetchStatus;
-    } | {
-        invalidateQueries: (filters?: InvalidateQueryFilters | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
-        removeQueries: (filters?: QueryFilters | undefined) => void;
-        setQueryData: (updater: Updater<TData | undefined, TData | undefined>, options?: SetDataOptions | undefined) => unknown;
-        data: undefined;
-        error: TError;
-        isError: true;
-        isPending: false;
-        isLoading: false;
-        isLoadingError: true;
-        isRefetchError: false;
-        isSuccess: false;
-        status: "error";
-        dataUpdatedAt: number;
-        errorUpdatedAt: number;
-        failureCount: number;
-        failureReason: TError | null;
-        errorUpdateCount: number;
-        isFetched: boolean;
-        isFetchedAfterMount: boolean;
-        isFetching: boolean;
-        isInitialLoading: boolean;
-        isPaused: boolean;
-        isPlaceholderData: boolean;
-        isRefetching: boolean;
-        isStale: boolean;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
-        fetchStatus: import("@tanstack/react-query").FetchStatus;
-    } | {
-        invalidateQueries: (filters?: InvalidateQueryFilters | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
-        removeQueries: (filters?: QueryFilters | undefined) => void;
-        setQueryData: (updater: Updater<TData | undefined, TData | undefined>, options?: SetDataOptions | undefined) => unknown;
-        data: undefined;
-        error: null;
-        isError: false;
-        isPending: true;
-        isLoading: true;
-        isLoadingError: false;
-        isRefetchError: false;
-        isSuccess: false;
-        status: "pending";
-        dataUpdatedAt: number;
-        errorUpdatedAt: number;
-        failureCount: number;
-        failureReason: TError | null;
-        errorUpdateCount: number;
-        isFetched: boolean;
-        isFetchedAfterMount: boolean;
-        isFetching: boolean;
-        isInitialLoading: boolean;
-        isPaused: boolean;
-        isPlaceholderData: boolean;
-        isRefetching: boolean;
-        isStale: boolean;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
-        fetchStatus: import("@tanstack/react-query").FetchStatus;
-    } | {
-        invalidateQueries: (filters?: InvalidateQueryFilters | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
-        removeQueries: (filters?: QueryFilters | undefined) => void;
-        setQueryData: (updater: Updater<TData | undefined, TData | undefined>, options?: SetDataOptions | undefined) => unknown;
-        data: undefined;
-        error: null;
-        isError: false;
-        isPending: true;
-        isLoadingError: false;
-        isRefetchError: false;
-        isSuccess: false;
-        status: "pending";
-        dataUpdatedAt: number;
-        errorUpdatedAt: number;
-        failureCount: number;
-        failureReason: TError | null;
-        errorUpdateCount: number;
-        isFetched: boolean;
-        isFetchedAfterMount: boolean;
-        isFetching: boolean;
-        isLoading: boolean;
-        isInitialLoading: boolean;
-        isPaused: boolean;
-        isPlaceholderData: boolean;
-        isRefetching: boolean;
-        isStale: boolean;
-        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
-        fetchStatus: import("@tanstack/react-query").FetchStatus;
+        options: import("./http").Options<TPaths[TPath_1], TMethod_1>;
+        axiosConfig?: import("./axios").TypedAxiosRequestConfig | undefined;
+    }) => import("@tanstack/react-query").UseQueryResult<TData, TError>;
+    useQueryClient: () => {
+        invalidateQueries: (filters?: (Omit<import("@tanstack/react-query").InvalidateQueryFilters, "queryKey"> & {
+            queryKey?: readonly (keyof TPaths)[] | undefined;
+        }) | undefined, options?: import("@tanstack/react-query").InvalidateOptions | undefined) => Promise<void>;
+        removeQueries: (filters?: (Omit<import("@tanstack/react-query").QueryFilters, "queryKey"> & {
+            queryKey?: readonly (keyof TPaths)[] | undefined;
+        }) | undefined) => void;
+        setQueryData: <TData_1>(queryKey: readonly (keyof TPaths)[], updater: import("@tanstack/react-query").Updater<TData_1 | undefined, TData_1 | undefined>, options?: import("@tanstack/react-query").SetDataOptions | undefined) => unknown;
     };
 };
-type TypedAxiosRequestConfig = Omit<AxiosRequestConfig, "url" | "method" | "baseURL" | "params" | "data">;
-export type HttpMethod = "get" | "put" | "post" | "delete" | "options" | "head" | "patch" | "trace";
-export type Options<TOperations, TMethod extends keyof TOperations> = Operation<TOperations[TMethod]> & RequestBody<TOperations[TMethod]> & HttpObject<TMethod>;
-type HttpObject<TMethod> = TMethod extends "get" ? {
-    method?: TMethod;
-} : {
-    method: TMethod;
-};
-type Operation<TOperation> = TOperation extends {
-    parameters: Parameters;
-} ? {
-    parameters: NonNullable<TOperation["parameters"]>;
-} : {
-    parameters?: undefined;
-};
-type Parameters = {
-    path?: Record<string, any>;
-    query?: Record<string, any>;
-};
-type RequestBody<TOperation> = {
-    data?: RequestBodyMedia<TOperation>;
-};
-type RequestBodyMedia<TOperation> = FilterKeys<RequestBodyContent<TOperation>, MediaType> extends never ? FilterKeys<NonNullable<RequestBodyContent<TOperation>>, MediaType> | undefined : FilterKeys<RequestBodyContent<TOperation>, MediaType>;
-type FilterKeys<Obj, Matchers> = {
-    [K in keyof Obj]: K extends Matchers ? Obj[K] : never;
-}[keyof Obj];
-type RequestBodyContent<TOperation> = FilterKeys<RequestBodyObj<TOperation>, "content">;
-type MediaType = `${string}/${string}`;
-type RequestBodyObj<T> = T extends {
-    requestBody?: any;
-} ? T["requestBody"] : never;
-type ResponseData<TOperation> = TOperation extends {
-    responses: any;
-} ? NonNullable<FilterKeys<Success<TOperation["responses"]>, MediaType>> : unknown;
-type Success<T> = FilterKeys<FilterKeys<T, OkStatus>, "content">;
-export type OkStatus = 200 | 201 | 202 | 203 | 204 | 206 | 207;
-export {};
