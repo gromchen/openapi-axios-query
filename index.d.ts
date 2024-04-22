@@ -11,7 +11,7 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         options: import("./http").Options<TPaths[TPath_1], TMethod_1>;
         axiosConfig?: import("./axios").TypedAxiosRequestConfig | undefined;
     }) => import("@tanstack/react-query").UseQueryResult<TData, TError>;
-    useQueryClient: () => {
+    useQueryHelpers: () => {
         invalidateQueries: (filters?: (Omit<import("@tanstack/react-query").InvalidateQueryFilters, "queryKey"> & {
             queryKey?: readonly (keyof TPaths)[] | undefined;
         }) | undefined, options?: import("@tanstack/react-query").InvalidateOptions | undefined) => Promise<void>;

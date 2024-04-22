@@ -1,5 +1,5 @@
 import { InvalidateOptions, InvalidateQueryFilters, QueryClient, QueryFilters, SetDataOptions, Updater } from "@tanstack/react-query";
-export declare function createTypedUseQueryClient<TPaths extends object>({ context, }: {
+export declare function createTypedUseQueryHelpers<TPaths extends object>({ context, }: {
     context: QueryClient;
 }): () => {
     invalidateQueries: (filters?: TypedInvalidateQueryFilters<TPaths>, options?: InvalidateOptions | undefined) => Promise<void>;

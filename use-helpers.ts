@@ -7,14 +7,14 @@ import {
   Updater,
   useQueryClient,
 } from "@tanstack/react-query";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 
-export function createTypedUseQueryClient<TPaths extends object>({
+export function createTypedUseQueryHelpers<TPaths extends object>({
   context,
 }: {
   context: QueryClient;
 }) {
-  function useTypedQueryClient() {
+  function useTypedQueryHelpers() {
     const queryClient = useQueryClient(context);
 
     const invalidateQueries = useCallback(
@@ -40,14 +40,17 @@ export function createTypedUseQueryClient<TPaths extends object>({
       [queryClient]
     );
 
-    return {
-      invalidateQueries,
-      removeQueries,
-      setQueryData,
-    };
+    return useMemo(
+      () => ({
+        invalidateQueries,
+        removeQueries,
+        setQueryData,
+      }),
+      [invalidateQueries, removeQueries, setQueryData]
+    );
   }
 
-  return useTypedQueryClient;
+  return useTypedQueryHelpers;
 }
 
 type TypedInvalidateQueryFilters<TPaths> = Omit<

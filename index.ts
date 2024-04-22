@@ -2,7 +2,7 @@ import { QueryClient } from "@tanstack/react-query";
 import { AxiosInstance } from "axios";
 import { createTypedAxios } from "./axios";
 import { createTypedUseQuery } from "./use-query";
-import { createTypedUseQueryClient } from "./use-query-client";
+import { createTypedUseQueryHelpers } from "./use-helpers";
 
 export function createClient<TPaths extends object>({
   baseURL,
@@ -18,6 +18,6 @@ export function createClient<TPaths extends object>({
   return {
     axios: typedAxios,
     useQuery: createTypedUseQuery<TPaths>({ typedAxios, context }),
-    useQueryClient: createTypedUseQueryClient<TPaths>({ context }),
+    useQueryHelpers: createTypedUseQueryHelpers<TPaths>({ context }),
   };
 }
