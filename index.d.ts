@@ -35,8 +35,8 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         isPlaceholderData: boolean;
         isRefetching: boolean;
         isStale: boolean;
-        refetch: (options?: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa")._ | undefined) => Promise<import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").ae<TData, TError>>;
-        fetchStatus: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").a6;
+        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
+        fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
         invalidateQueries: (filters?: InvalidateQueryFilters | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
         removeQueries: (filters?: QueryFilters | undefined) => void;
@@ -63,8 +63,8 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         isPlaceholderData: boolean;
         isRefetching: boolean;
         isStale: boolean;
-        refetch: (options?: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa")._ | undefined) => Promise<import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").ae<TData, TError>>;
-        fetchStatus: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").a6;
+        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
+        fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
         invalidateQueries: (filters?: InvalidateQueryFilters | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
         removeQueries: (filters?: QueryFilters | undefined) => void;
@@ -91,8 +91,8 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         isPlaceholderData: boolean;
         isRefetching: boolean;
         isStale: boolean;
-        refetch: (options?: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa")._ | undefined) => Promise<import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").ae<TData, TError>>;
-        fetchStatus: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").a6;
+        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
+        fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
         invalidateQueries: (filters?: InvalidateQueryFilters | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
         removeQueries: (filters?: QueryFilters | undefined) => void;
@@ -119,8 +119,8 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         isPlaceholderData: boolean;
         isRefetching: boolean;
         isStale: boolean;
-        refetch: (options?: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa")._ | undefined) => Promise<import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").ae<TData, TError>>;
-        fetchStatus: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").a6;
+        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
+        fetchStatus: import("@tanstack/react-query").FetchStatus;
     } | {
         invalidateQueries: (filters?: InvalidateQueryFilters | undefined, options?: InvalidateOptions | undefined) => Promise<void>;
         removeQueries: (filters?: QueryFilters | undefined) => void;
@@ -147,8 +147,8 @@ export declare function createClient<TPaths extends object>({ baseURL, axios, co
         isPlaceholderData: boolean;
         isRefetching: boolean;
         isStale: boolean;
-        refetch: (options?: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa")._ | undefined) => Promise<import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").ae<TData, TError>>;
-        fetchStatus: import("@tanstack/query-core/build/legacy/queryClient-MRqjmcFa").a6;
+        refetch: (options?: import("@tanstack/react-query").RefetchOptions | undefined) => Promise<import("@tanstack/react-query").QueryObserverResult<TData, TError>>;
+        fetchStatus: import("@tanstack/react-query").FetchStatus;
     };
 };
 type TypedAxiosRequestConfig = Omit<AxiosRequestConfig, "url" | "method" | "baseURL" | "params" | "data">;
