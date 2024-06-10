@@ -12,7 +12,7 @@ dependencies:
 devDependencies:
   '@tanstack/react-query':
     specifier: ^5.18.1
-    version: 5.37.1(react@18.2.0)
+    version: 5.40.1(react@18.2.0)
   '@types/react':
     specifier: ^18.2.21
     version: 18.3.2
@@ -123,16 +123,16 @@ packages:
       fastq: 1.17.1
     dev: true
 
-  /@tanstack/query-core@5.36.1:
-    resolution: {integrity: sha512-BteWYEPUcucEu3NBcDAgKuI4U25R9aPrHSP6YSf2NvaD2pSlIQTdqOfLRsxH9WdRYg7k0Uom35Uacb6nvbIMJg==}
+  /@tanstack/query-core@5.40.0:
+    resolution: {integrity: sha512-eD8K8jsOIq0Z5u/QbvOmfvKKE/XC39jA7yv4hgpl/1SRiU+J8QCIwgM/mEHuunQsL87dcvnHqSVLmf9pD4CiaA==}
     dev: true
 
-  /@tanstack/react-query@5.37.1(react@18.2.0):
-    resolution: {integrity: sha512-EhtBNA8GL3XFeSx6VYUjXQ96n44xe3JGKZCzBINrCYlxbZP6UwBafv7ti4eSRWc2Fy+fybQre0w17gR6lMzULA==}
+  /@tanstack/react-query@5.40.1(react@18.2.0):
+    resolution: {integrity: sha512-gOcmu+gpFd2taHrrgMM9RemLYYEDYfsCqszxCC0xtx+csDa4R8t7Hr7SfWXQP13S2sF+mOxySo/+FNXJFYBqcA==}
     peerDependencies:
       react: ^18.0.0
     dependencies:
-      '@tanstack/query-core': 5.36.1
+      '@tanstack/query-core': 5.40.0
       react: 18.2.0
     dev: true
 
